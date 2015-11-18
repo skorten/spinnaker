@@ -1,0 +1,12 @@
+1447853524,,ui,say,==> hvm_builder: Terminating the source AWS instance...
+1447853530,,ui,say,==> hvm_builder: Cleaning up any extra volumes...
+1447853530,,ui,say,==> hvm_builder: Deleting temporary keypair...
+1447853530,,ui,say,Build 'hvm_builder' finished.
+1447853530,,ui,say,\n==> Builds finished. The artifacts of successful builds are:
+1447853530,hvm_builder,artifact-count,1
+1447853530,hvm_builder,artifact,0,builder-id,mitchellh.amazonebs
+1447853530,hvm_builder,artifact,0,id,ap-northeast-1:ami-9c1033f2%!(PACKER_COMMA)ap-southeast-1:ami-6993520a%!(PACKER_COMMA)ap-southeast-2:ami-de520bbd%!(PACKER_COMMA)eu-central-1:ami-09203265%!(PACKER_COMMA)eu-west-1:ami-e30dd790%!(PACKER_COMMA)sa-east-1:ami-5d47fd31%!(PACKER_COMMA)us-east-1:ami-a3afeac9%!(PACKER_COMMA)us-west-1:ami-2796f847%!(PACKER_COMMA)us-west-2:ami-02766663
+1447853530,hvm_builder,artifact,0,string,AMIs were created:\n\nap-northeast-1: ami-9c1033f2\nap-southeast-1: ami-6993520a\nap-southeast-2: ami-de520bbd\neu-central-1: ami-09203265\neu-west-1: ami-e30dd790\nsa-east-1: ami-5d47fd31\nus-east-1: ami-a3afeac9\nus-west-1: ami-2796f847\nus-west-2: ami-02766663
+1447853530,hvm_builder,artifact,0,files-count,0
+1447853530,hvm_builder,artifact,0,end
+1447853530,,ui,say,--> hvm_builder: AMIs were created:\n\nap-northeast-1: ami-9c1033f2\nap-southeast-1: ami-6993520a\nap-southeast-2: ami-de520bbd\neu-central-1: ami-09203265\neu-west-1: ami-e30dd790\nsa-east-1: ami-5d47fd31\nus-east-1: ami-a3afeac9\nus-west-1: ami-2796f847\nus-west-2: ami-02766663
