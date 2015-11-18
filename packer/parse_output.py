@@ -87,6 +87,13 @@ def main(argv):
 
     md_fo.write(md_header)
 
+    for instance_type in amis:
+        for region in amis[instance_type]:
+            ami_id = amis[instance_type][region]
+
+            line_to_write = '|' + region + '|' + name + '|' + ubuntu_version + '|' + instance_type + '|' + '[' + ami_id + '](' + amazon_console_prefix + region + '#launchAmi=' + ami_id + ') |\n'
+            md_fo.write(line_to_write)
+
     md_fo.close()
 
 '''
