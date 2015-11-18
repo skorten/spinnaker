@@ -7,8 +7,7 @@ import os
 
 builders = [ 'hvm_builder' ] #might add pv_builds later... not sure.
 
-md_header="""
----
+md_header="""---
 layout: toc-page
 title: AMI ID table
 id: ami_table

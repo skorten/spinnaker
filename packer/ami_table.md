@@ -1,4 +1,3 @@
-
 ---
 layout: toc-page
 title: AMI ID table
