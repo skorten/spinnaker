@@ -25,7 +25,7 @@
             "ssh_timeout": "5m",
             "ssh_private_ip": "true",
             "vpc_id": "{{user `vpc_id`}}",
-            "ami_name": "Spinnaker-JPANCOASTREMOVE-Ubuntu-{{user `ubuntu_version`}}-{{user `build`}}",
+            "ami_name": "Spinnaker-Ubuntu-{{user `ubuntu_version`}}-{{user `build`}}",
             "region": "{{user `region`}}",
             "launch_block_device_mappings": [
                 {
