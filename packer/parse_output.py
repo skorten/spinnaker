@@ -34,7 +34,7 @@ lang: en
 
 def main(argv):
     if len(sys.argv) < 3:
-        print "ERROR: You did not give me the output file.\n\tusage: " + sys.argv[0] + " <jenkinsoutputfilelocation> <wheretoputtheartifacts>\n"
+        print "ERROR: You did not give me the Jenkins output file.\n\tusage: " + sys.argv[0] + " <jenkinsoutputfilelocation> <wheretoputtheartifacts>\n"
         exit(1)
 
     jenkins_output_file = sys.argv[1]
@@ -82,8 +82,6 @@ def main(argv):
                         amis[instance_type][region] = ami_id
 
     fo.close()
-
-    pp.pprint(amis)
 
     name = 'Spinnaker-Ubuntu-14.04-10'
     ubuntu_version = '14.04 LTS'
