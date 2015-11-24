@@ -39,6 +39,8 @@ def main(argv):
 
     jenkins_output_file = sys.argv[1]
     artifact_file_location = sys.argv[2]
+    build_version = sys.argv[3]
+    ubuntu_version = sys.argv[4]
 
     if not os.path.isfile(jenkins_output_file):
         print "ERROR: Jenkins output file does not exist (" + jenkins_output_file + ").\n\tusage: " + sys.argv[0] + " <jenkinsoutputfilelocation> <wheretoputtheartifacts>\n"
@@ -83,7 +85,7 @@ def main(argv):
 
     fo.close()
 
-    name = 'Spinnaker-Ubuntu-14.04-' + os.environ['BUILD_NUMBER'] 
+    name = 'Spinnaker-Ubuntu-' + ubuntu_version + '-' + build_number
     ubuntu_version = '14.04 LTS'
     amazon_console_prefix = 'https://console.aws.amazon.com/ec2/home?region='
 
