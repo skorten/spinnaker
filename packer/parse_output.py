@@ -60,9 +60,9 @@ def main(argv):
     for line in fo:
         for builder in builders:
             if re.match('^hvm', builder):
-                instance_type = 'hvm'
+                instance_type = 'HVM'
             else:
-                instance_type = 'pv'
+                instance_type = 'PV'
 
             if instance_type not in amis:
                 amis[instance_type] = {}
@@ -83,7 +83,7 @@ def main(argv):
 
     fo.close()
 
-    name = 'Spinnaker-Ubuntu-14.04-10'
+    name = 'Spinnaker-Ubuntu-14.04-' + os.environ['BUILD_NUMBER'] 
     ubuntu_version = '14.04 LTS'
     amazon_console_prefix = 'https://console.aws.amazon.com/ec2/home?region='
 
