@@ -39,15 +39,15 @@ def main(argv):
 
     jenkins_output_file = sys.argv[1]
     artifact_file_location = sys.argv[2]
-    build_version = sys.argv[3]
+    build_number = sys.argv[3]
     ubuntu_version = sys.argv[4]
 
     if not os.path.isfile(jenkins_output_file):
-        print "ERROR: Jenkins output file does not exist (" + jenkins_output_file + ").\n\tusage: " + sys.argv[0] + " <jenkinsoutputfilelocation> <wheretoputtheartifacts>\n"
+        print "ERROR: Jenkins output file does not exist (" + jenkins_output_file + ").\n\tusage: " + sys.argv[0] + " <jenkinsoutputfilelocation> <wheretoputtheartifacts> <build_number> <ubuntu_version>\n"
         exit(1)
 
     if not os.path.isdir(artifact_file_location):
-        print "ERROR: Artifact directory give does not exist (" + artifact_file_location + ").\n\tusage: " + sys.argv[0] + " <jenkinsoutputfilelocation> <wheretoputtheartifacts>\n"
+        print "ERROR: Artifact directory give does not exist (" + artifact_file_location + ").\n\tusage: " + sys.argv[0] + " <jenkinsoutputfilelocation> <wheretoputtheartifacts> <build_number> <ubuntu_version>\n"
         exit(1)
 
 
