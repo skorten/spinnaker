@@ -1,0 +1,126 @@
+ospackage {
+
+// common installation paths 
+  def spinnakerHome = "/opt/" + project.name
+
+// global package requirements
+  packageName = project.name
+  version = toVers(project.version.toString())
+  release '3'
+
+// files to put in the meta package
+  from('pylib') {
+    into spinnakerHome + '/pylib'
+  }
+
+  from('cassandra') {
+    into spinnakerHome + '/cassandra'
+  }
+
+  from('install') {
+    into spinnakerHome + '/install'
+  }
+
+  from('runtime') {
+    into spinnakerHome + '/bin'
+    fileMode = 0755
+  }
+
+  from('config') {
+    into spinnakerHome + '/config'
+    fileMode = 0644
+  }
+
+  File configDir
+  FileCollection collection = files { configDir.listFiles() }
+
+  configDir = file('config')
+  collection.each { configurationFile(spinnakerHome + '/' + relativePath(it) + '\n') }
+}
+
+wrapThis {
+
+  // installer scripts
+  preInstall = file('pkg_scripts/deb/preInstall.sh')
+  postInstall = file('pkg_scripts/deb/postInstall.sh')
+  postUninstall = file('pkg_scripts/deb/postUninstall.sh')
+
+  from(file('etc/init/spinnaker.conf')) {
+    into('/etc/init')
+    user = 'root'
+    permissionGroup = 'root'
+    fileType = CONFIG | NOREPLACE
+  }
+
+  from('etc/apache2/sites-available/spinnaker.conf') {
+    into '/etc/apache2/sites-available'
+    user = 'root'
+    permissionGroup = 'root'    
+    fileMode = 0644
+  }
+
+  from('etc/default/spinnaker') {
+    into '/etc/default'
+    user = 'root'
+    permissionGroup = 'root'
+    fileMode = 0644
+  }
+
+  configurationFile('/etc/default/spinnaker\n')
+
+}
+
+
+
+// Ubuntu
+buildDeb(type: Deb) {
+  // installer scripts
+  preInstall = file('pkg_scripts/deb/preInstall.sh')
+  postInstall = file('pkg_scripts/deb/postInstall.sh')
+  postUninstall = file('pkg_scripts/deb/postUninstall.sh')
+
+  from(file('etc/init/spinnaker.conf')) {
+    into('/etc/init')
+    user = 'root'
+    permissionGroup = 'root'
+    fileType = CONFIG | NOREPLACE
+  }
+
+  from('etc/apache2/sites-available/spinnaker.conf') {
+    into '/etc/apache2/sites-available'
+    user = 'root'
+    permissionGroup = 'root'    
+    fileMode = 0644
+  }
+
+  from('etc/default/spinnaker') {
+    into '/etc/default'
+    user = 'root'
+    permissionGroup = 'root'
+    fileMode = 0644
+  }
+
+  configurationFile('/etc/default/spinnaker\n')
+
+  // requires('openjdk-8-jdk')
+  // requires('oracle-java8-installer')
+  requires('redis-server', '3.0.5', GREATER | EQUAL)
+  requires('spinnaker-clouddriver')
+  requires('spinnaker-deck')
+  requires('spinnaker-echo')
+  requires('spinnaker-front50')
+  requires('spinnaker-gate')
+  requires('spinnaker-igor')
+  requires('spinnaker-orca')
+  requires('spinnaker-rosco')
+  requires('spinnaker-rush')
+  requires('apache2')
+
+}
+
+
+// TO DO 
+buildRpm {
+  arch = NOARCH
+  os = LINUX
+}
