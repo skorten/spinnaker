@@ -9,15 +9,10 @@ if [ `readlink -f /opt/spinnaker/scripts` != "/opt/spinnaker/bin" ]; then
   ln -s /opt/spinnaker/bin /opt/spinnaker/scripts
 fi
 
-<<<<<<< HEAD
 if [ ! -f /opt/spinnaker/config/spinnaker-local.yml ]; then
   # Create master config on original install, but leave in place on upgrades.
   cp /opt/spinnaker/config/default-spinnaker-local.yml /opt/spinnaker/config/spinnaker-local.yml
 fi
-=======
-# Create master config
-cp /opt/spinnaker/config/default-spinnaker-local.yml /opt/spinnaker/config/spinnaker-local.yml
->>>>>>> restructure to support building functional deb and rpm packages
 
 # deck settings
 /opt/spinnaker/bin/reconfigure_spinnaker.sh
