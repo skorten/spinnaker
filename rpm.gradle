@@ -33,6 +33,11 @@ ospackage {
   version = toVers(project.version.toString())
   release '3'
 
+// installer scripts
+  preInstall = file('pkg_scripts/preInstall.sh')
+  postInstall = file('pkg_scripts/postInstall.sh')
+  postUninstall = file('pkg_scripts/postUninstall.sh')
+
 // files to put in the meta package
   from('pylib') {
     into spinnakerHome + '/pylib'
@@ -49,6 +54,13 @@ ospackage {
   from('runtime') {
     into spinnakerHome + '/bin'
     fileMode = 0755
+  }  
+
+  from(file('etc/init/spinnaker.conf')) {
+    into('/etc/init')
+    user = 'root'
+    permissionGroup = 'root'
+    fileType = CONFIG | NOREPLACE
   }
 
   from('config') {
@@ -56,38 +68,18 @@ ospackage {
     fileMode = 0644
   }
 
-  File configDir
-  FileCollection collection = files { configDir.listFiles() }
 
-  configDir = file('config')
-  collection.each { configurationFile(spinnakerHome + '/' + relativePath(it) + '\n') }
-}
-
-// Ubuntu
-buildDeb {
-  // installer scripts
-  preInstall = file('pkg_scripts/deb/preInstall.sh')
-  postInstall = file('pkg_scripts/deb/postInstall.sh')
-  postUninstall = file('pkg_scripts/deb/postUninstall.sh')
-
-  from(file('pkg_files/deb/etc/init/spinnaker.conf')) {
-    into('/etc/init')
-    user = 'root'
-    permissionGroup = 'root'
-    fileType = CONFIG | NOREPLACE
-  }
-
-  from('pkg_files/deb/etc/apache2/sites-available/spinnaker.conf') {
+  from('etc/apache2/sites-available/spinnaker.conf') {
     into '/etc/apache2/sites-available'
     user = 'root'
     permissionGroup = 'root'    
     fileMode = 0644
   }
 
-  from('pkg_files/deb/etc/default/spinnaker') {
+  from('etc/default/spinnaker') {
     into '/etc/default'
     user = 'root'
-    permissionGroup = 'root'
+    permissionGroup = 'root'    
     fileMode = 0644
   }
 
@@ -116,7 +108,7 @@ buildDeb {
   requires('spinnaker-rosco')
   requires('spinnaker-rush')
   requires('apache2')
-
+  
 }
 
 
@@ -124,44 +116,4 @@ buildDeb {
 buildRpm {
   arch = NOARCH
   os = LINUX
-  // installer scripts
-  preInstall = file('pkg_scripts/rpm/preInstall.sh')
-  postInstall = file('pkg_scripts/rpm/postInstall.sh')
-  postUninstall = file('pkg_scripts/rpm/postUninstall.sh')
-
-  from(file('pkg_files/rpm/etc/init/spinnaker.conf')) {
-    into('/etc/init')
-    user = 'root'
-    permissionGroup = 'root'
-    fileType = CONFIG | NOREPLACE
-  }
-
-  from('pkg_files/rpm/etc/httpd/conf.d/spinnaker.conf') {
-    into '/etc/httpd/conf.d'
-    user = 'root'
-    permissionGroup = 'root'
-    fileMode = 0644
-  }
-
-  from('pkg_files/rpm/etc/sysconfig/spinnaker') {
-    into '/etc/sysconfig'
-    user = 'root'
-    permissionGroup = 'root'
-    fileMode = 0644
-  }
-
-  configurationFile('/etc/sysconfig/spinnaker\n')
-
-  requires('java-1.8.0-openjdk')
-  requires('redis-server', '3.0.5', GREATER | EQUAL)
-  requires('spinnaker-clouddriver')
-  requires('spinnaker-deck')
-  requires('spinnaker-echo')
-  requires('spinnaker-front50')
-  requires('spinnaker-gate')
-  requires('spinnaker-igor')
-  requires('spinnaker-orca')
-  requires('spinnaker-rosco')
-  requires('spinnaker-rush')
-  requires('httpd24')
 }
