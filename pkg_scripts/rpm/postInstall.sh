@@ -22,7 +22,7 @@ rm -rf /etc/apache2/sites-enabled/*.conf
 
 ln -s /etc/apache2/sites-available/spinnaker.conf /etc/apache2/sites-enabled/spinnaker.conf
 
-sed -i "s/Listen\ 80/Listen 127.0.0.1:9000/" /etc/apache2/ports.conf
+sed -i "s/Listen\ 80/Listen 127.0.0.1:9000/" /etc/httpd/conf/httpd.conf
 
 service apache2 restart
 
