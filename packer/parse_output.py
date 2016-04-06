@@ -22,7 +22,6 @@ except ImportError, e:
 
 awsprofile   = 'default'                          # from ~/.aws/credentials and ~/.aws/config
 s3bucket     = 'kenzan-spinnaker-public-ami-list' # must already exist
-botodebuglvl = 0                                  # 0|1|2, read the boto docs
 
 builders = [ 'hvm_builder' ] #might add pv_builds later... not sure.
 
@@ -148,7 +147,6 @@ def main(argv):
     html_fo.close()
 
     conn = boto.connect_s3(
-		debug = botodebuglvl,
 		profile_name = awsprofile,
 	)
 
@@ -162,7 +160,9 @@ def main(argv):
         k.key = 'latest/' + file
         k.set_contents_from_filename(artifact_file_location + '/' + file)
         k.set_acl('public-read')
-        k.get_contents_as_string()
+        k.key = 'archive/' + build_number + '-' + file
+        k.set_contents_from_filename(artifact_file_location + '/' + file)
+        k.set_acl('public-read')
 
 if __name__ == "__main__":
     main(sys.argv)
