@@ -63,7 +63,7 @@ def main(argv):
     build_number = sys.argv[3]
     ubuntu_version = sys.argv[4]
     s3bucket = sys.argv[5]
-    awsprofile = sys.argv[6] or 'default'
+    awsprofile = 'default' or sys.argv[6]
 
     if not os.path.isfile(jenkins_output_file):
         print "ERROR: Jenkins output file does not exist (" + jenkins_output_file + ").\n\tusage: " + sys.argv[0] + " <jenkinsoutputfilelocation> <wheretoputtheartifacts> <build_number> <ubuntu_version>\n"
