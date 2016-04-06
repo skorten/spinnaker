@@ -20,8 +20,6 @@ except ImportError, e:
     print "If you don't have pip, do this first: sudo easy_install pip"
     exit(2)
 
-awsprofile   = 'default'                          # from ~/.aws/credentials and ~/.aws/config
-s3bucket     = 'kenzan-spinnaker-public-ami-list' # must already exist
 
 builders = [ 'hvm_builder' ] #might add pv_builds later... not sure.
 
@@ -64,6 +62,8 @@ def main(argv):
     artifact_file_location = sys.argv[2]
     build_number = sys.argv[3]
     ubuntu_version = sys.argv[4]
+    s3bucket = sys.argv[5]
+    awsprofile = sys.argv[6] or 'default'
 
     if not os.path.isfile(jenkins_output_file):
         print "ERROR: Jenkins output file does not exist (" + jenkins_output_file + ").\n\tusage: " + sys.argv[0] + " <jenkinsoutputfilelocation> <wheretoputtheartifacts> <build_number> <ubuntu_version>\n"
