@@ -54,7 +54,7 @@ html_footer="""</table>
 """
 
 def main(argv):
-    if len(sys.argv) < 3:
+    if len(sys.argv) < 4:
         print "ERROR: You did not give me the Jenkins output file.\n\tusage: " + sys.argv[0] + " <jenkinsoutputfilelocation> <wheretoputtheartifacts>\n"
         exit(1)
 
