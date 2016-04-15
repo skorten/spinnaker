@@ -22,6 +22,10 @@ providers:
     enabled: ${SPINNAKER_GOOGLE_ENABLED:false}
     defaultRegion: ${SPINNAKER_GOOGLE_DEFAULT_REGION}
     defaultZone: ${SPINNAKER_GOOGLE_DEFAULT_ZONE}
+
+    # If you are managing only one account, you can enter it here.
+    # If you are managing multiple accounts, you will need to add them to
+    # clouddriver.yml (preferably make your own clouddriver-local.yml)
     primaryCredentials:
       name: my-google-account
       # The project is the Google Project ID for the project to manage with Spinnaker.
@@ -37,6 +41,10 @@ providers:
     enabled: false
     defaultOrg: spinnaker-cf-org
     defaultSpace: spinnaker-cf-space
+
+    # If you are managing only one account, you can enter it here.
+    # If you are managing multiple accounts, you will need to add them to
+    # clouddriver.yml (preferably make your own clouddriver-local.yml)
     primaryCredentials:
       name: my-cf-account
       api: my-cf-api-uri
@@ -51,10 +59,15 @@ providers:
     # set enabled and provide primary credentials for deploying.
     # Enabling kubernetes is dependent on dockerRegistry being enabled.
     enabled: ${SPINNAKER_KUBERNETES_ENABLED:false}
+
+    # If you are managing only one account, you can enter it here.
+    # If you are managing multiple accounts, you will need to add them to
+    # clouddriver.yml (preferably make your own clouddriver-local.yml)
     primaryCredentials:
       # These credentials use authentication information at ~/.kube/config
       # by default.
       name: my-kubernetes-account
+      namespace: default
       dockerRegistryAccount: ${providers.dockerRegistry.primaryCredentials.name}
 
   dockerRegistry:
@@ -62,6 +75,10 @@ providers:
     # you must specifiy where these container images exist first.
     # Enabling dockerRegistry is independent of other providers.
     enabled: ${SPINNAKER_KUBERNETES_ENABLED:false}
+
+    # If you are managing only one account/repository, you can enter it here.
+    # If you are managing multiple accounts/repositories, you add them to
+    # clouddriver.yml (preferably make your own clouddriver-local.yml)
     primaryCredentials:
       name: my-docker-registry-account
       address: https://index.docker.io/
@@ -111,6 +128,24 @@ services:
       baseUrl:
       username:
       password:
+
+  travis:
+    # If you are integrating Travis, set its location here using the baseUrl
+    # and adress fields and provide the githubToken for authentication.
+    # You must also enable the "igor" service listed separately.
+    #
+    # If you have multiple travis servers, you will need to list
+    # them in an igor-local.yml. See travis.masters in config/igor.yml.
+    #
+    # Note that travis is not installed with Spinnaker so you must obtain this
+    # on your own if you are interested.
+    enabled: false
+    defaultMaster:
+      name: ci # The display name for this server. Gets prefixed with "travis-"
+      baseUrl: https://travis-ci.com
+      address: https://api.travis-ci.org
+      githubToken: # GitHub scopes currently required by Travis is required.
+
 
   clouddriver:
     # Controls whether UserDataProviders are used to populate user data of new server groups.
